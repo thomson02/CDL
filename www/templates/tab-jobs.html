@@ -1,0 +1,15 @@
+<ion-view view-title="Jobs">
+  <ion-content class="padding">
+
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+    <ion-list>
+        <ion-item ng-repeat="job in jobs">
+            <h2>{{job.scheduledDate}}</h2>
+            <p>{{job.clientId}}</p>
+            <i class="icon ion-chevron-right icon-accessory"></i>
+        </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,23 @@
+<ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+</ion-nav-bar>
+
+<!--
+Create tabs with an icon and label, using the tabs-stable style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top tabs-stable">
+
+  <!-- Dashboard Tab -->
+  <ion-tab title="Jobs" icon-off="ion-archive" icon-on="ion-archive" href="#/tab/jobs">
+    <ion-nav-view name="tab-jobs"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Chats Tab -->
+  <ion-tab title="Clients" icon-off="ion-ios-people" icon-on="ion-ios-people" href="#/tab/clients">
+    <ion-nav-view name="tab-clients"></ion-nav-view>
+  </ion-tab>
+
+</ion-tabs>
