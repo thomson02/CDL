@@ -38,6 +38,7 @@ angular.module('cdl.services', [])
                 postcode: 'P0 ST1',
                 phone: '00000000000',
                 email: 'email@mail.com',
+                status: 'active',
                 commercial: false
             }
         ];
