@@ -58,6 +58,10 @@ angular.module('cdl.services', [])
                 }
 
                 return null;
+            },
+            add: function (client) {
+                // TODO: Add validation
+                clients.push(client);
             }
         };
     })

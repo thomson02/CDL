@@ -24,6 +24,7 @@ angular.module('cdl.controllers', [])
                 alert("error logging in " + error.debug);
             });
     };
+
 })
 
 .controller('JobsCtrl', function($scope, $timeout, Jobs) {
@@ -53,12 +54,44 @@ angular.module('cdl.controllers', [])
 
 })
 
-.controller('ClientsCtrl', function($scope, Clients) {
+.controller('ClientsCtrl', function($scope, $ionicModal, Clients) {
     $scope.clients = Clients.all();
 
     $scope.remove = function(job) {
         Clients.remove(job);
     };
+
+    $ionicModal.fromTemplateUrl('client-add.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function() {
+        // Reset client obj
+        $scope.client = {
+            id: Clients.all().length + 1,
+            address: [],
+            job: {}
+        };
+
+        $scope.modal.show();
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+    $scope.saveAndCloseModal = function () {
+        Clients.add($scope.client);
+        $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
+
 })
 
 .controller('ClientDetailCtrl', function($scope, $stateParams, Clients) {

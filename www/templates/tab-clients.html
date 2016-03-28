@@ -1,23 +1,123 @@
 <ion-view view-title="Clients">
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-icon-left item-icon-right" ng-repeat="client in clients" type="item-text-wrap" href="#/tab/clients/{{client.id}}">
 
-        <i class="icon ion-play" style="color: green;"></i>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon icon ion-ios-plus-empty" ng-click="openModal()"></button>
+    </ion-nav-buttons>
 
-        <h2>{{client.name}}</h2> 
-        <p>{{client.address[0]}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" ng-repeat="client in clients" type="item-text-wrap" href="#/tab/clients/{{client.id}}">
 
-        <ion-option-button ng-if="client.status === 'active'" class="button-energized" ng-click="remove(client)">
-            Pause
-        </ion-option-button>
+                <i class="icon ion-play" style="color: green;"></i>
 
-        <ion-option-button class="button-assertive" ng-click="remove(client)">
-            Delete
-        </ion-option-button>
+                <h2>{{client.name}}</h2>
+                <p>{{client.address[0]}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
 
-      </ion-item>
-    </ion-list>
-  </ion-content>
+                <ion-option-button ng-if="client.status === 'active'" class="button-energized" ng-click="remove(client)">
+                    Pause
+                </ion-option-button>
+
+                <ion-option-button class="button-assertive" ng-click="remove(client)">
+                    Delete
+                </ion-option-button>
+
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>
+
+
+<script id="client-add.html" type="text/ng-template">
+    <div class="modal">
+        <ion-header-bar>
+            <h1 class="title">Add Client</h1>
+            <button class="button button-icon icon ion-ios-close-empty" ng-click="closeModal()"></button>
+        </ion-header-bar>
+        <ion-content>
+            <ul class="list">
+                
+                <li class="item item-divider">
+                    Contact Information
+                </li>
+
+                <li class="item item-input">
+                    <span class="input-label">Name</span>
+                    <input type="text" ng-model="client.name">
+                </li>
+                
+                <li class="item item-input">
+                    <span class="input-label">Address</span>
+                    <input type="text" ng-model="client.address[0]">
+                </li>
+
+                <li class="item item-input">
+                    <span class="input-label"></span>
+                    <input type="text" ng-model="client.address[1]">
+                </li>
+                
+                <li class="item item-input">
+                    <span class="input-label"></span>
+                    <input type="text" ng-model="client.address[2]">
+                </li>
+                
+                <li class="item item-input">
+                    <span class="input-label" ng-model="client.postcode">Postcode</span>
+                    <input type="text">
+                </li>
+                
+                <li class="item item-input">
+                    <span class="input-label" ng-model="client.phone">Phone</span>
+                    <input type="tel">
+                </li>
+                
+                <li class="item item-input">
+                    <span class="input-label" ng-model="client.email">Email</span>
+                    <input type="email">
+                </li>
+                
+                <li class="item item-divider">
+                    Job Details
+                </li>
+                
+                <li class="item item-input">
+                    <span class="input-label">Description</span>
+                    <input type="text" ng-model="client.job.description">
+                </li>
+                
+                <li class="item item-input">
+                    <span class="input-label">Start Date</span>
+                    <input type="week" ng-model="client.job.startDate">
+                </li>
+                
+                <li class="item item-input">
+                    <span class="input-label">End Date</span>
+                    <input type="week" ng-model="client.job.endDate">
+                </li>
+
+                <li class="item item-input">
+                    <span class="input-label">Frequency</span>
+                    <input type="number" ng-model="client.job.frequency">
+                    <span class="item-note" style="margin-right: 30px;">
+                        days
+                    </span>
+                </li>
+
+                <li class="item item-toggle">
+                    Commercial
+                    <label class="toggle toggle-positive">
+                        <input type="checkbox" checked="" ng-model="client.job.commercial">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </li>
+            </ul>
+            
+            <div class="padding">
+                <button class="button button-block button-positive" ng-click="saveAndCloseModal()">Add Client</button>
+            </div>
+
+        </ion-content>
+    </div>
+</script>
