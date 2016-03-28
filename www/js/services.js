@@ -33,11 +33,11 @@ angular.module('cdl.services', [])
         var clients = [
             {
                 id: 0,
-                name: 'Mr Thomson',
-                address: ['23 Castlemains Crescent', 'Uddingston', 'Glasgow'],
-                postcode: 'G71 7ND',
-                phone: '07764491827',
-                email: 'thomsoar@me.com',
+                name: 'Mr Bloggs',
+                address: ['10 Street Name', 'Village', 'Town'],
+                postcode: 'P0 ST1',
+                phone: '00000000000',
+                email: 'email@mail.com',
                 commercial: false
             }
         ];
