@@ -1,28 +1,22 @@
 <ion-modal-view>
-   
-    <ion-header-bar>
-        <h1 class="title">Login</h1>
-        <div class="buttons">
-            <button class="button button-clear" ng-click="doLogout()">Close</button>
+
+    <ion-content class="login-page">
+
+        <div class="login-set">
+            <img src="img/logo.png" class="img-responsive">
         </div>
-    </ion-header-bar>
-    
-    <ion-content>
-        <form ng-submit="doLogin()">
-            <div class="list">
-                <label class="item item-input">
-                    <span class="input-label">Username</span>
-                    <input type="text" ng-model="creds.username">
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Password</span>
-                    <input type="password" ng-model="creds.password">
-                </label>
-                <label class="item">
-                    <button class="button button-block button-positive" type="submit">Log in</button>
-                </label>
+
+        <div class="row padding">
+            <div class="col"> 
+                <div class="list list-inset">
+                    <label class="item item-input"><input type="text" ng-model="creds.username" placeholder="Email Address"> </label>
+                    <label class="item item-input"><input type="password" ng-model="creds.password" placeholder="Password"> </label>
+                </div>
+                <div class="loginButton"><button class="button ion-unlocked button-block button-balanced" ng-click="doLogin()"> Login </button>  </div>
+                <div class="logoutButton"><button class="button ion-locked button-block button-balanced" ng-click="doLogout()"> Logout Hack </button>  </div>
             </div>
-        </form>
+        </div>
+
     </ion-content>
     
 </ion-modal-view>
