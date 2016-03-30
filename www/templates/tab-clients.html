@@ -95,12 +95,13 @@
                     <input type="week" ng-model="client.job.endDate">
                 </li>
 
-                <li class="item item-input">
-                    <span class="input-label">Frequency</span>
-                    <input type="number" ng-model="client.job.frequency">
-                    <span class="item-note" style="margin-right: 30px;">
-                        days
-                    </span>
+                <li class="item item-input item-select">
+                    <div class="input-label">Frequency</div>
+                    <select ng-model="client.job.frequency">
+                        <option value="7">Weekly</option>
+                        <option value="14">Fortnightly</option>
+                        <option value="28">Monthly</option>
+                    </select>
                 </li>
 
                 <li class="item item-toggle">
