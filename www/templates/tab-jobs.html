@@ -1,9 +1,26 @@
 <ion-view view-title="Jobs">
-  <ion-content class="padding">
+
+    <div class="tabs-striped tabs-top tabs-background-balanced tabs-color-light">
+        <div class="tabs">
+            <a class="tab-item active {{classa}}" ng-click="tabchange('all',1)">
+                <span>All</span>
+            </a>
+            <a class="tab-item {{classb}}" ng-click="tabchange('nearby',2)">
+                <span>Nearby</span>
+            </a>
+            <a class="tab-item {{classc}}" ng-click="tabchange('overdue',3)">
+                <span>Overdue</span>
+            </a>
+        </div>
+    </div>
+    
+    <ion-content class="has-tabs-top">
 
     <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
-    <ion-list>
+     
+
+      <ion-list>
         <ion-item ng-repeat="job in jobs">
             <h2>{{job.scheduledDate}}</h2>
             <p>{{job.clientId}}</p>

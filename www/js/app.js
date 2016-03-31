@@ -43,12 +43,15 @@ angular.module('cdl', ['ionic', 'cdl.controllers', 'cdl.services', 'kinvey'])
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
                 StatusBar.styleLightContent();
+                StatusBar.overlaysWebView(true);
             }
         });
     })
     .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
-        $ionicConfigProvider.tabs.position('bottom');
+        $ionicConfigProvider.views.transition('ios');
+        $ionicConfigProvider.tabs.style('standard').position('bottom');
+        $ionicConfigProvider.navBar.alignTitle('center').positionPrimaryButtons('left');
 
         // Ionic uses AngularUI Router which uses the concept of states
         // Learn more here: https://github.com/angular-ui/ui-router

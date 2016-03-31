@@ -15,6 +15,16 @@
     margin-top: 50px;
 }
 
-.login-button {
-    background-color: red !important;
+.loginButton .button.button-balanced {
+    background-color: #444 !important;
+    border-color: #333 !important;
+}
+
+.tabs-striped.tabs-background-balanced .tabs {
+  background-color: #558000 !important;
+
+}
+
+.tabs-top.tabs-striped .tab-item.tab-item-active, .tabs-top.tabs-striped .tab-item.active, .tabs-top.tabs-striped .tab-item.activated {
+      border-width: 2px 0px 0px 0px !important;
 }
