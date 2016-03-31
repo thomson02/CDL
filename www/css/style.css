@@ -11,6 +11,14 @@
     background-size: cover;
 }
 
+ion-header-bar {
+    background-image: url('../img/grass.jpg') !important;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
 .login-set {
     margin-top: 50px;
 }
@@ -25,6 +33,25 @@
 
 }
 
+.tabs-top.tabs-striped .tab-item, .tabs-top.tabs-striped .tab-item, .tabs-top.tabs-striped .tab-item {
+      border-width: 0px 0px 4px 0px !important;
+      border-color: #558000 !important;
+}
+
 .tabs-top.tabs-striped .tab-item.tab-item-active, .tabs-top.tabs-striped .tab-item.active, .tabs-top.tabs-striped .tab-item.activated {
-      border-width: 2px 0px 0px 0px !important;
+      border-width: 0px 0px 4px 0px !important;
+      border-color: #444 !important;
+}
+
+.tabs-top.tabs-striped > div.tabs {
+    height: 35px !important;
+    border-top: 1px solid #80b31a !important;
+}
+
+.tabs-top.tabs-striped > div.tabs a.tab-item {
+    line-height: 35px !important;
+}
+
+.has-tabs-top.jobs {
+    top: 79px;
 }
