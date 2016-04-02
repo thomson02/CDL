@@ -34,7 +34,7 @@ angular.module('cdl.services', [])
         var dataStore = $kinvey.DataStore.getInstance('Clients', $kinvey.DataStoreType.Sync);
 
         // Sync every 2 mins (I hope!)
-        function autoSync() {
+        function autoSync(wait) {
             dataStore.sync()
                 .then(function(result) {
                     console.log("Client Sync Complete: " + result);
@@ -44,13 +44,14 @@ angular.module('cdl.services', [])
                 })
                 .then(function() {
                     console.log("Delay");
-                    setTimeout(autoSync, 120000);
+                    setTimeout(autoSync, wait);
                 });
         };
 
-        autoSync();
-
         return {
+            init: function(wait) {
+                autoSync(wait);
+            },
             all: function () {
                 return dataStore.find(null, { readPolicy: 3, timeout: 15000 })
                     .then(function(res) {
