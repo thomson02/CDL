@@ -2,6 +2,7 @@ angular.module('cdl.controllers', [])
 
 .controller('LoginCtrl', function ($scope, $state, $stateParams, UserService) {
 
+    // TODO: Remove this hack 
     $scope.creds = {
         username: '',
         password: ''
@@ -24,7 +25,6 @@ angular.module('cdl.controllers', [])
                 alert("error logging in " + error.debug);
             });
     };
-
 })
 
 .controller('JobsCtrl', function($scope, $timeout, Jobs) {
@@ -54,28 +54,33 @@ angular.module('cdl.controllers', [])
 
 })
 
-.controller('ClientsCtrl', function($scope, $ionicModal, Clients) {
-    $scope.clients = Clients.all();
+.controller('ClientsCtrl', function ($scope, $ionicModal, $timeout, Clients, uuid, clients) {
 
-    $scope.remove = function(job) {
-        Clients.remove(job);
+    $scope.clients = clients;
+
+    $scope.doRefresh = function () {
+        Clients.all()
+            .then(function(refreshedClients) {
+                $scope.clients = refreshedClients;
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+    };
+
+    $scope.remove = function(clientId) {
+        Clients.remove(clientId);
     };
 
     $ionicModal.fromTemplateUrl('client-add.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
+            scope: $scope,
+            animation: 'slide-in-up'
+        })
+        .then(function(modal) {
+            $scope.modal = modal;
+        });
 
     $scope.openModal = function() {
         // Reset client obj
-        $scope.client = {
-            id: Clients.all().length + 1,
-            address: [],
-            job: {}
-        };
-
+        $scope.client = {};
         $scope.modal.show();
     };
 
@@ -94,6 +99,6 @@ angular.module('cdl.controllers', [])
 
 })
 
-.controller('ClientDetailCtrl', function($scope, $stateParams, Clients) {
-    $scope.client = Clients.get($stateParams.clientId);
+.controller('ClientDetailCtrl', function($scope, $stateParams, client) {
+    $scope.client = client;
 });

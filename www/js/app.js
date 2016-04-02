@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('cdl', ['ionic', 'cdl.controllers', 'cdl.services', 'kinvey'])
+angular.module('cdl', ['ionic', 'cdl.controllers', 'cdl.services', 'kinvey', 'angular-uuid'])
     .config(function($kinveyProvider) {
         $kinveyProvider.init({
             appKey: "", // MUST SET THIS
@@ -88,6 +88,11 @@ angular.module('cdl', ['ionic', 'cdl.controllers', 'cdl.services', 'kinvey'])
                         templateUrl: 'templates/tab-clients.html',
                         controller: 'ClientsCtrl'
                     }
+                },
+                resolve: {
+                    clients: function ($stateParams, Clients) {
+                        return Clients.all();
+                    }
                 }
             })
             .state('tab.client-detail', {
@@ -97,12 +102,29 @@ angular.module('cdl', ['ionic', 'cdl.controllers', 'cdl.services', 'kinvey'])
                         templateUrl: 'templates/client-detail.html',
                         controller: 'ClientDetailCtrl'
                     }
+                },
+                resolve: {
+                    client: function ($stateParams, Clients) {
+                        return Clients.get($stateParams.clientId);
+                    }
                 }
             })
             .state('login', {
                 url: "/login",
                 templateUrl: "templates/login.html",
-                controller: 'LoginCtrl'
+                controller: 'LoginCtrl',
+                resolve: {
+                    autoLogin: function ($state, UserService) {
+                        // Check to see if we have an active user. 
+                        // If so then boot straight into app.
+                        return UserService.getActiveUser()
+                            .then(function(res) {
+                                if (!res.error) {
+                                    $state.go('tab.jobs');
+                                }
+                            });
+                    }
+                }
             });
 
         // if none of the above states are matched, use this as the fallback

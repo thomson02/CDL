@@ -24,40 +24,45 @@ angular.module('cdl.services', [])
                         return deferred.reject({ error: 'noUser' });
                     });
 
-                return deferred;
+                return deferred.promise;
             }
         };
     })
 
-.factory('Clients', function() {
-        var clients = [
-            {
-                id: 0,
-                name: 'Mr Bloggs',
-                address: ['10 Street Name', 'Village', 'Town'],
-                postcode: 'P0 ST1',
-                phone: '00000000000',
-                email: 'email@mail.com',
-                status: 'active',
-                commercial: false
-            }
-        ];
+.factory('Clients', function($q, $kinvey) {
+
+        var dataStore = $kinvey.DataStore.getInstance('Clients', $kinvey.DataStoreType.Sync);
+
+        // Sync every 2 mins (I hope!)
+        function autoSync() {
+            dataStore.sync()
+                .then(function(result) {
+                    console.log("Client Sync Complete: " + result);
+                })
+                .catch(function(err) {
+                    console.log("Client Sync Error: " + err);
+                })
+                .then(function() {
+                    console.log("Delay");
+                    setTimeout(autoSync, 120000);
+                });
+        };
+
+        autoSync();
 
         return {
             all: function () {
-                return clients;
+                return dataStore.find(null, { readPolicy: 3, timeout: 15000 })
+                    .then(function(res) {
+                        res.sort(function (a, b) { return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0); });
+                        return res;
+                    });
             },
             remove: function (client) {
                 clients.splice(clients.indexOf(client), 1);
             },
             get: function (clientId) {
-                for (var i = 0; i < clients.length; i++) {
-                    if (clients[i].id === parseInt(clientId)) {
-                        return clients[i];
-                    }
-                }
-
-                return null;
+                return dataStore.findById(clientId, { readPolicy: 3, timeout: 15000 });
             },
             add: function (client) {
                 // TODO: Add validation

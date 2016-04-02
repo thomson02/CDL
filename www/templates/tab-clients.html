@@ -5,13 +5,16 @@
     </ion-nav-buttons>
 
     <ion-content>
+
+        <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
         <ion-list>
-            <ion-item class="item-remove-animate item-icon-left item-icon-right" ng-repeat="client in clients" type="item-text-wrap" href="#/tab/clients/{{client.id}}">
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" ng-repeat="client in clients" type="item-text-wrap" href="#/tab/clients/{{client._id}}">
 
                 <i class="icon ion-play" style="color: green;"></i>
 
                 <h2>{{client.name}}</h2>
-                <p>{{client.address[0]}}</p>
+                <p>{{client.address}}</p>
                 <i class="icon ion-chevron-right icon-accessory"></i>
 
                 <ion-option-button ng-if="client.status === 'active'" class="button-energized" ng-click="remove(client)">
@@ -48,17 +51,17 @@
                 
                 <li class="item item-input">
                     <span class="input-label">Address</span>
-                    <input type="text" ng-model="client.address[0]">
+                    <input type="text" ng-model="client.address">
                 </li>
 
                 <li class="item item-input">
                     <span class="input-label"></span>
-                    <input type="text" ng-model="client.address[1]">
+                    <input type="text" ng-model="client.address">
                 </li>
                 
                 <li class="item item-input">
                     <span class="input-label"></span>
-                    <input type="text" ng-model="client.address[2]">
+                    <input type="text" ng-model="client.address">
                 </li>
                 
                 <li class="item item-input">
@@ -82,22 +85,22 @@
                 
                 <li class="item item-input">
                     <span class="input-label">Description</span>
-                    <input type="text" ng-model="client.job.description">
+                    <input type="text" ng-model="client.jobDetails.description">
                 </li>
                 
                 <li class="item item-input">
                     <span class="input-label">Start Date</span>
-                    <input type="week" ng-model="client.job.startDate">
+                    <input type="week" ng-model="client.jobDetails.startDate">
                 </li>
                 
                 <li class="item item-input">
                     <span class="input-label">End Date</span>
-                    <input type="week" ng-model="client.job.endDate">
+                    <input type="week" ng-model="client.jobDetails.endDate">
                 </li>
 
                 <li class="item item-input item-select">
                     <div class="input-label">Frequency</div>
-                    <select ng-model="client.job.frequency">
+                    <select ng-model="client.jobDetails.frequency">
                         <option value="7">Weekly</option>
                         <option value="14">Fortnightly</option>
                         <option value="28">Monthly</option>
@@ -107,7 +110,7 @@
                 <li class="item item-toggle">
                     Commercial
                     <label class="toggle toggle-positive">
-                        <input type="checkbox" checked="" ng-model="client.job.commercial">
+                        <input type="checkbox" checked="" ng-model="client.jobDetails.commercial">
                         <div class="track">
                             <div class="handle"></div>
                         </div>
