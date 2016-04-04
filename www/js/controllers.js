@@ -30,28 +30,13 @@ angular.module('cdl.controllers', [])
 .controller('JobsCtrl', function($scope, $timeout, Jobs) {
     $scope.jobs = Jobs.all();
 
-    $scope.doRefresh = function() {
-
-        $timeout( function() {
-            //simulate async response
-            var newJob = {
-                id: $scope.jobs.length + 1,
-                clientId: 0,
-                scheduledDate: new Date(),
-                performedDate: null,
-                photos: [],
-                comment: ''
-            };
-
-            $scope.jobs.push(newJob);
-
-            //Stop the ion-refresher from spinning
-            $scope.$broadcast('scroll.refreshComplete');
-
-        }, 1000);
-
+    $scope.doRefresh = function () {
+        Jobs.all()
+            .then(function (refreshedJobs) {
+                $scope.jobs = refreshedJobs;
+                $scope.$broadcast('scroll.refreshComplete');
+            });
     };
-
 })
 
 .controller('ClientsCtrl', function ($scope, $ionicModal, $timeout, Clients, uuid, clients) {
