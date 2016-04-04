@@ -1,0 +1,89 @@
+<div class="modal">
+    <ion-header-bar class="navClass bar-positive">
+        <button class="button button-icon icon ion-ios-close-empty" ng-click="closeModal()"></button>
+        <h1 class="title">Add Client</h1>
+        <button class="button button-icon icon ion-ios-checkmark-empty" ng-click="saveAndCloseModal()"></button>
+    </ion-header-bar>
+    <ion-content>
+        <ul class="list">
+                
+            <li class="item item-divider">
+                Contact Information
+            </li>
+
+            <li class="item item-input">
+                <span class="input-label">Name</span>
+                <input type="text" ng-model="client.name">
+            </li>
+                
+            <li class="item item-input">
+                <span class="input-label">Address</span>
+                <input type="text" ng-model="client.address">
+            </li>
+
+            <li class="item item-input">
+                <span class="input-label"></span>
+                <input type="text" ng-model="client.address">
+            </li>
+                
+            <li class="item item-input">
+                <span class="input-label"></span>
+                <input type="text" ng-model="client.address">
+            </li>
+                
+            <li class="item item-input">
+                <span class="input-label" ng-model="client.postcode">Postcode</span>
+                <input type="text">
+            </li>
+                
+            <li class="item item-input">
+                <span class="input-label" ng-model="client.phone">Phone</span>
+                <input type="tel">
+            </li>
+                
+            <li class="item item-input">
+                <span class="input-label" ng-model="client.email">Email</span>
+                <input type="email">
+            </li>
+                
+            <li class="item item-divider">
+                Job Details
+            </li>
+                
+            <li class="item item-input">
+                <span class="input-label">Description</span>
+                <input type="text" ng-model="client.jobDetails.description">
+            </li>
+                
+            <li class="item item-input">
+                <span class="input-label">Start Date</span>
+                <input type="week" ng-model="client.jobDetails.startDate">
+            </li>
+                
+            <li class="item item-input">
+                <span class="input-label">End Date</span>
+                <input type="week" ng-model="client.jobDetails.endDate">
+            </li>
+
+            <li class="item item-input item-select">
+                <div class="input-label">Frequency</div>
+                <select ng-model="client.jobDetails.frequency">
+                    <option value="7">Weekly</option>
+                    <option value="14">Fortnightly</option>
+                    <option value="28">Monthly</option>
+                </select>
+            </li>
+
+            <li class="item item-toggle">
+                Commercial
+                <label class="toggle toggle-positive">
+                    <input type="checkbox" checked="" ng-model="client.jobDetails.commercial">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+        </ul>
+
+    </ion-content>
+</div>

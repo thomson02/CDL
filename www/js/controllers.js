@@ -70,7 +70,7 @@ angular.module('cdl.controllers', [])
         Clients.remove(clientId);
     };
 
-    $ionicModal.fromTemplateUrl('client-add.html', {
+    $ionicModal.fromTemplateUrl('./templates/client-add.html', {
             scope: $scope,
             animation: 'slide-in-up'
         })

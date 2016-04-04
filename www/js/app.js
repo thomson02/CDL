@@ -12,7 +12,7 @@ angular.module('cdl', ['ionic', 'cdl.controllers', 'cdl.services', 'kinvey', 'an
             appSecret: "" // MUST SET THIS
         });
     })
-    .run(function ($ionicPlatform, $rootScope, $state, $kinvey, Clients) {
+    .run(function ($ionicPlatform, $rootScope, $state, $kinvey, Clients, Jobs) {
 
         $kinvey.ping()
             .then(function(response) {
@@ -21,7 +21,8 @@ angular.module('cdl', ['ionic', 'cdl.controllers', 'cdl.services', 'kinvey', 'an
                 console.log('Kinvey Ping Failed. Response: ' + error.description);
             });
 
-        Clients.init(5 * 60 * 1000); // 5 minutes
+        Clients.init(15 * 60 * 1000); // 15 minutes
+        Jobs.init(15 * 60 * 1000); // 15 minutes
 
         $rootScope.$on('$stateChangeError',
             function(event, toState, toParams, fromState, fromParams, error) {

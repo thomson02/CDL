@@ -29,22 +29,20 @@ angular.module('cdl.services', [])
         };
     })
 
-.factory('Clients', function($q, $kinvey) {
+.factory('Clients', function($kinvey) {
 
         var dataStore = $kinvey.DataStore.getInstance('Clients', $kinvey.DataStoreType.Sync);
 
-        // Sync every 2 mins (I hope!)
         function autoSync(wait) {
             dataStore.sync()
                 .then(function(result) {
-                    console.log("Client Sync Complete: " + result);
+                    console.log("Clients Sync Complete: " + result);
                 })
                 .catch(function(err) {
-                    console.log("Client Sync Error: " + err);
+                    console.log("Clients Sync Error: " + err);
                 })
                 .then(function() {
-                    console.log("Delay");
-                    setTimeout(autoSync, wait);
+                    setTimeout(autoSync, wait, wait);
                 });
         };
 
@@ -59,48 +57,50 @@ angular.module('cdl.services', [])
                         return res;
                     });
             },
-            remove: function (client) {
-                clients.splice(clients.indexOf(client), 1);
+            remove: function (clientId) {
+                return dataStore.removeById(clientId);
             },
             get: function (clientId) {
                 return dataStore.findById(clientId, { readPolicy: 3, timeout: 15000 });
             },
             add: function (client) {
-                // TODO: Add validation
-                clients.push(client);
+                return dataStore.save(client);
             }
         };
     })
 
-.factory('Jobs', function() {
-  // Might use a resource here that returns a JSON array
+.factory('Jobs', function ($kinvey) {
+    var dataStore = $kinvey.DataStore.getInstance('Jobs', $kinvey.DataStoreType.Sync);
 
-  // Some fake testing data
-    var jobs = [
-        {
-            id: 0,
-            clientId: 0,
-            scheduledDate: new Date(),
-            performedDate: null,
-            photos: [],
-            comment: ''
-        }
-    ];
+    function autoSync(wait) {
+        dataStore.sync()
+            .then(function (result) {
+                console.log("Jobs Sync Complete: " + result);
+            })
+            .catch(function (err) {
+                console.log("Jobs Sync Error: " + err);
+            })
+            .then(function () {
+                setTimeout(autoSync, wait, wait);
+            });
+    };
 
-  return {
-    all: function() {
-      return jobs;
-    },
-    remove: function(job) {
-      jobs.splice(jobs.indexOf(job), 1);
-    },
-    get: function(jobId) {
-      for (var i = 0; i < jobs.length; i++) {
-          if (jobs[i].id === parseInt(jobId)) {
-          return jobs[i];
+    return {
+        init: function (wait) {
+            autoSync(wait);
+        },
+        all: function () {
+            // TODO: Add an ordering to this collection
+            return dataStore.find(null, { readPolicy: 3, timeout: 15000 });
+        },
+        remove: function(jobId) {
+            return dataStore.removeById(jobId);
+        },
+        get: function(jobId) {
+            return dataStore.findById(jobId, { readPolicy: 3, timeout: 15000 });
+        },
+        add: function (job) {
+            return dataStore.save(job);
         }
-      }
-      return null;
-    }
-  };
+    };
 });
